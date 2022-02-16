@@ -23,7 +23,10 @@ public class Solution20 {
      */
 
     public void solveSudoku(char[][] board) {
+        long start = System.currentTimeMillis();
         solve(board);
+        long end = System.currentTimeMillis();
+        System.out.println((end - start));
         printSodu(board);
     }
 
@@ -49,21 +52,24 @@ public class Solution20 {
     }
 
     private boolean isSoduOk(char[][] board, int i, int j, char tmp) {
+//        int col = i / 3 * 3;
+//        int row = j / 3 * 3;
         for (int k = 0; k < 9; k++) {
-            if (k == i) {
-                continue;
+            if (k != i) {
+                if (tmp == board[k][j]) {
+                    return false;
+                }
             }
-            if (tmp == board[k][j]) {
-                return false;
+            if (k != j) {
+                if (tmp == board[i][k]) {
+                    return false;
+                }
             }
-        }
-        for (int k = 0; k < 9; k++) {
-            if (k == j) {
-                continue;
-            }
-            if (tmp == board[i][k]) {
-                return false;
-            }
+//            if (i != (col + k / 3) || j != row + k % 3) {
+//                if (tmp == board[col + k / 3][row + k % 3]) {
+//                    return false;
+//                }
+//            }
         }
         for (int k = i / 3 * 3; k < i / 3 * 3 + 3; k++) {
             for (int l = j / 3 * 3; l < j / 3 * 3 + 3; l++) {

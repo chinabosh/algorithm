@@ -34,7 +34,55 @@ public class Solution3 {
      */
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int preIndex = 0;
-        TreeNode node = new TreeNode(preorder[preIndex]);
-        return node;
+        int inIndex = -1;
+        for (int i = 0; i < inorder.length; i++) {
+            if (preorder[preIndex] == inorder[i]) {
+                inIndex = i;
+                break;
+            }
+        }
+        if (inIndex == -1) {
+            return null;
+        }
+//        int[] preLeft = new int[inIndex];
+//        int[] inLeft = new int[inIndex];
+//        TreeNode treeNode = new TreeNode(preorder[preIndex]);
+//        for (int i = 0; i < inIndex; i++) {
+//            inLeft[i] = inorder[i];
+//            preLeft[i] = preorder[preIndex + i + 1];
+//        }
+//        treeNode.left = buildTree(preLeft, inLeft);
+//        int[] preRight = new int[inorder.length - inIndex - 1];
+//        int[] inRight = new int[inorder.length - inIndex - 1];
+//        for (int i = 0; i < inorder.length - inIndex - 1; i++) {
+//            inRight[i] = inorder[inIndex + i + 1];
+//            preRight[i] = preorder[inIndex + i + 1];
+//        }
+//        treeNode.right = buildTree(preRight, inRight);
+//        return treeNode;
+        return buildTree(preorder, inorder, 0, 0, preorder[preIndex]);
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder,
+                              int preStart, int inStart, int end) {
+        if (preStart >= preorder.length) {
+            return null;
+        }
+        int inIndex = -1;
+        for (int i = inStart; inorder[i] != end; i++) {
+            if (preorder[preStart] == inorder[i]) {
+                inIndex = i;
+                break;
+            }
+        }
+        if (inIndex == -1) {
+            return null;
+        }
+        TreeNode treeNode = new TreeNode(preorder[preStart]);
+        treeNode.left = buildTree(preorder, inorder, preStart + 1,
+                 inStart, inIndex - 1);
+        treeNode.right = buildTree(preorder, inorder, preStart + inIndex - inStart + 1,
+                 inIndex + 1, preorder[preStart]);
+        return treeNode;
     }
 }

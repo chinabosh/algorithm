@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 /**
  * @author lzq
@@ -405,5 +407,215 @@ public class SolutionTest {
         Solution30 solution = new Solution30();
         boolean res = solution.isRobotBounded("GGLLGG");
         assertTrue(res);
+    }
+
+    @Test
+    public void testGroupAnagrams() {
+        Solution31 solution = new Solution31();
+        String[] test = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
+        List<List<String>> res = solution.groupAnagrams(test);
+        for (List<String> list : res) {
+            for (String s : list) {
+                System.out.print(s + "  ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void testFirstMissingPositive() {
+        Solution32 solution = new Solution32();
+        assertEquals(3, solution.firstMissingPositive(new int[]{1,2,0}));
+        assertEquals(2, solution.firstMissingPositive(new int[]{3,4,-1,1}));
+        assertEquals(1, solution.firstMissingPositive(new int[]{7,8,9,11,12}));
+        assertEquals(2, solution.firstMissingPositive(new int[]{1}));
+    }
+
+    @Test
+    public void testSolveNQueens() {
+        Solution33 solution = new Solution33();
+//        List<List<String>> res = solution.solveNQueens(5);
+        for (int i = 1; i<=9;i++) {
+            System.out.println( i+":" + solution.solveNQueens(i).size());
+        }
+//        for (List<String> list : res) {
+//            for (String s : list) {
+//                System.out.println(s);
+//            }
+//            System.out.println();
+//        }
+    }
+
+    @Test
+    public void testGetPermutation() {
+        Solution34 solution = new Solution34();
+        assertEquals("132", solution.getPermutation(3, 2));
+        assertEquals("21", solution.getPermutation(2, 2));
+        assertEquals("2314", solution.getPermutation(4, 9));
+        assertEquals("213", solution.getPermutation(3, 3));
+        assertEquals("123", solution.getPermutation(3, 1));
+        assertEquals("12", solution.getPermutation(2, 1));
+    }
+
+    @Test
+    public void testMinWindow() {
+        Solution35 solution = new Solution35();
+        assertEquals("BANC", solution.minWindow("ADOBECODEBANC", "ABC"));
+        assertEquals("a", solution.minWindow("a", "a"));
+        assertEquals("", solution.minWindow("a", "aa"));
+    }
+
+    @Test
+    public void testMaxProfit() {
+        Solution36 solution = new Solution36();
+        assertEquals(6, solution.maxProfit(new int[]{3,3,5,0,0,3,1,4}));
+        assertEquals(4, solution.maxProfit(new int[]{1,2,3,4,5}));
+        assertEquals(0, solution.maxProfit(new int[]{7,6,4,3,1}));
+        assertEquals(0, solution.maxProfit(new int[]{1}));
+        int count = (int) (Math.random() * 105);
+        int[] in = new int[count];
+        for (int i = 0; i < count; i++) {
+            in[i] = (int) (Math.random() * 105);
+            System.out.print(in[i] + ",");
+        }
+        System.out.println();
+        System.out.println(solution.maxProfit(in));
+    }
+
+    @Test
+    public void testMaxProfit1() {
+        Solution37 solution = new Solution37();
+        assertEquals(5, solution.maxProfit(new int[]{7,1,5,3,6,4}));
+        assertEquals(0, solution.maxProfit(new int[]{7,6,4,3,1}));
+        int count = (int) (Math.random() * 105);
+        int[] in = new int[count];
+        for (int i = 0; i < count; i++) {
+            in[i] = (int) (Math.random() * 105);
+            System.out.print(in[i] + ",");
+        }
+        System.out.println();
+        System.out.println(solution.maxProfit(in));
+    }
+
+    @Test
+    public void testRestoreIpAddresses() {
+        Solution38 solution = new Solution38();
+        List<String> res = solution.restoreIpAddresses("25525511135");
+        assert res.contains("255.255.11.135");
+        assert res.contains("255.255.111.35");
+        assert res.size() == 2;
+        res = solution.restoreIpAddresses("0000");
+        assert res.contains("0.0.0.0");
+        assert res.size() == 1;
+        res = solution.restoreIpAddresses("1111");
+        assert res.contains("1.1.1.1");
+        assert res.size() == 1;
+        res = solution.restoreIpAddresses("010010");
+        assert res.contains("0.10.0.10");
+        assert res.contains("0.100.1.0");
+        assert res.size() == 2;
+        res = solution.restoreIpAddresses("101023");
+        assert res.contains("1.0.10.23");
+        assert res.contains("1.0.102.3");
+        assert res.contains("10.1.0.23");
+        assert res.contains("10.10.2.3");
+        assert res.contains("101.0.2.3");
+        assert res.size() == 5;
+    }
+
+    @Test
+    public void testIsNumber() {
+        Solution39 solution = new Solution39();
+        assert solution.isNumber("0");
+        assert !solution.isNumber("e");
+        assert !solution.isNumber(".");
+        assert solution.isNumber(".1");
+        assert solution.isNumber("2");
+        assert solution.isNumber("0089");
+        assert solution.isNumber("-0.1");
+        assert solution.isNumber("+3.14");
+        assert solution.isNumber("4.");
+        assert solution.isNumber("-.9");
+        assert solution.isNumber("2e10");
+        assert solution.isNumber("-90E3");
+        assert solution.isNumber("3e+7");
+        assert solution.isNumber("+6e-1");
+        assert solution.isNumber("53.5e93");
+        assert solution.isNumber("-123.456e789");
+        assert !solution.isNumber("abc");
+        assert !solution.isNumber("1a");
+        assert !solution.isNumber("1e");
+        assert !solution.isNumber("e3");
+        assert !solution.isNumber("99e2.5");
+        assert !solution.isNumber("--6");
+        assert !solution.isNumber("-+3");
+        assert !solution.isNumber("95a54e53");
+    }
+
+    @Test
+    public void testUniquePathsWithObstacles() {
+        Solution41 solution = new Solution41();
+        assertEquals(1, solution.uniquePathsWithObstacles(new int[][]{{0,0}}));
+        assertEquals(2, solution.uniquePathsWithObstacles(new int[][]{{0,0,0},{0,1,0},{0,0,0}}));
+        assertEquals(1, solution.uniquePathsWithObstacles(new int[][]{{0,1},{0,0}}));
+    }
+
+    @Test
+    public void testCandy() {
+        Solution42 solution42 = new Solution42();
+        assertEquals(5, solution42.candy(new int[]{1,0,2}));
+        assertEquals(4, solution42.candy(new int[]{1,2,2}));
+    }
+
+    @Test
+    public void testContainsNearbyDuplicate() {
+        Solution43 solution43 = new Solution43();
+        assert solution43.containsNearbyDuplicate2(new int[]{1,0,1,1}, 1);
+        assert solution43.containsNearbyDuplicate2(new int[]{1,2,3,1}, 3);
+        assert !solution43.containsNearbyDuplicate2(new int[]{1,2,3,1,2,3}, 2);
+    }
+
+    @Test
+    public void testCountDigitOne() {
+        Solution44 solution44 = new Solution44();
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(i + ":"+solution44.countDigitOne(i));
+        }
+        assertEquals(6, solution44.countDigitOne(13));
+        assertEquals(0, solution44.countDigitOne(0));
+//        assertEquals(767944060, solution44.countDigitOne(824883294));
+    }
+
+    @Test
+    public void testMaxSlidingWindow() {
+        Solution45 solution45 = new Solution45();
+        assertArrayEquals(new int[]{3,3,2,5}, solution45.maxSlidingWindow(new int[]{1,3,1,2,0,5}, 3));
+        assertArrayEquals(new int[]{3,3,5,5,6,7}, solution45.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3));
+    }
+
+    @Test
+    public void testMaxPoints() {
+        Solution46 solution46 = new Solution46();
+        assertEquals(3, solution46.maxPoints(new int[][]{{1,1},{2,2},{3,3}}));
+        assertEquals(4, solution46.maxPoints(new int[][]{{1,1},{3,2},{5,3},{4,1},{2,3},{1,4}}));
+    }
+
+    @Test
+    public void testCountAndSay() {
+        Solution47 solution47 = new Solution47();
+        assertEquals("111221", solution47.countAndSay(5));
+        assertEquals("1211", solution47.countAndSay(4));
+        assertEquals("21", solution47.countAndSay(3));
+        assertEquals("11", solution47.countAndSay(2));
+        assertEquals("1", solution47.countAndSay(1));
+    }
+
+    @Test
+    public void testStrStr() {
+        Solution48 solution48 = new Solution48();
+        assertEquals(4, solution48.strStr("mississippi", "issip"));
+        assertEquals(2, solution48.strStr("hello", "ll"));
+        assertEquals(-1, solution48.strStr("aaaaa", "bba"));
+        assertEquals(0, solution48.strStr("", ""));
     }
 }
