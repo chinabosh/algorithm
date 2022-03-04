@@ -618,4 +618,12 @@ public class SolutionTest {
         assertEquals(-1, solution48.strStr("aaaaa", "bba"));
         assertEquals(0, solution48.strStr("", ""));
     }
+
+    @Test
+    public void testJump() {
+        Solution49 solution49 = new Solution49();
+        assertEquals(2, solution49.jump(new int[]{2,3,1,1,4}));
+        assertEquals(1, solution49.jump(new int[]{2,1}));
+        assertEquals(2, solution49.jump(new int[]{2,3,0,1,4}));
+    }
 }

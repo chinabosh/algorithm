@@ -1,6 +1,10 @@
 package com.bosh.lib;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author lzq
@@ -44,6 +48,21 @@ public class Solution45 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
-        return null;
+        Deque<Integer> deque = new LinkedList<>();
+        int[] res = new int[nums.length - k + 1];
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
+                deque.removeLast();
+            }
+            deque.addLast(nums[i]);
+            if (i >= k && nums[i - k] == deque.peekFirst()) {
+                deque.removeFirst();
+            }
+            if (i >= k - 1) {
+                res[i - k + 1] = deque.peekFirst();
+            }
+        }
+
+        return res;
     }
 }
