@@ -45,10 +45,61 @@ public class Solution35 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     public String minWindow(String s, String t) {
-        char tmp;
         if (s.length() < t.length()) {
             return "";
         }
+        int[] index = new int[256];
+        for (int i = 0; i < t.length(); i++) {
+            index[t.charAt(i)]++;
+        }
+        int start = 0, end = 0;
+        int startRes = -1, endRes= -1;
+        int status = 0;
+        while (true) {
+            if (status == 0) {
+                if (end >= s.length()) {
+                    break;
+                }
+                index[s.charAt(end)] --;
+                end++;
+                if (hasContain(index)) {
+                    status = 1;
+                    if (startRes != -1) {
+                        if (endRes - startRes > end - start) {
+                            startRes = start;
+                            endRes = end;
+                        }
+                    } else {
+                        startRes = start;
+                        endRes = end;
+                    }
+                    index[s.charAt(start)]++;
+                    start++;
+                }
+            } else {
+                if (hasContain(index)) {
+                    index[s.charAt(start)]++;
+                    start++;
+                } else {
+                    status = 0;
+                    startRes = start -1;
+                    endRes = end;
+                }
+            }
+        }
+        if (startRes >= 0 && endRes >=0) {
+            return s.substring(startRes, endRes);
+        }
         return "";
+    }
+
+    private boolean hasContain(int[] data) {
+        boolean res = true;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
