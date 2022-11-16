@@ -349,8 +349,11 @@ public class SolutionTest {
     @Test
     public void testIsMatch() throws Exception {
         Solution8 solution = new Solution8();
-        boolean value = solution.isMatch("asfjal", "as.jala");
-        System.out.println(value);
+        assert !solution.isMatch("aa", "a");
+        assert solution.isMatch("aa", "a*");
+        assert solution.isMatch("ab", ".*");
+        assert solution.isMatch("aab", "c*a*b*");
+        assert !solution.isMatch("mississippi", "mis*is*p*.");
     }
 
     @Test

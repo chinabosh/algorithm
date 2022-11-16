@@ -6,13 +6,13 @@ package com.bosh.lib;
  */
 public class Solution8 {
     /**
-     * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+     * 给你一个字符串s和一个字符规律p，请你来实现一个支持 '.'和'*'的正则表达式匹配。
      *
      * '.' 匹配任意单个字符
      * '*' 匹配零个或多个前面的那一个元素
-     * 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+     * 所谓匹配，是要涵盖整个字符串s的，而不是部分字符串。
      *
-     *  
+     * 
      * 示例 1：
      *
      * 输入：s = "aa" p = "a"
@@ -23,7 +23,7 @@ public class Solution8 {
      * 输入：s = "aa" p = "a*"
      * 输出：true
      * 解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
-     * 示例 3：
+     * 示例3：
      *
      * 输入：s = "ab" p = ".*"
      * 输出：true
@@ -37,15 +37,15 @@ public class Solution8 {
      *
      * 输入：s = "mississippi" p = "mis*is*p*."
      * 输出：false
-     *  
+     * 
      *
      * 提示：
      *
-     * 0 <= s.length <= 20
-     * 0 <= p.length <= 30
-     * s 可能为空，且只包含从 a-z 的小写字母。
-     * p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
-     * 保证每次出现字符 * 时，前面都匹配到有效的字符
+     * 0 <= s.length<= 20
+     * 0 <= p.length<= 30
+     * s可能为空，且只包含从a-z的小写字母。
+     * p可能为空，且只包含从a-z的小写字母，以及字符.和*。
+     * 保证每次出现字符* 时，前面都匹配到有效的字符
      *
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/regular-expression-matching
@@ -55,6 +55,42 @@ public class Solution8 {
         if (p == null) {
             return false;
         }
-        return false;
+        int pi = 0, si = 0;
+        int predict = 1;
+        while (pi < p.length()) {
+            if (si >= s.length()) {
+                if (predict == p.length() - 1 && p.charAt(predict) == '*') {
+                    pi += 2;
+                } else {
+                    return false;
+                }
+            } else {
+                if (predict < p.length()) {
+                    if (p.charAt(predict) == '*') {
+                        if (s.charAt(si) != p.charAt(pi) || p.charAt(pi) != '.') {
+                            pi += 2;
+                            predict = pi + 1;
+                        } else {
+                            si++;
+                        }
+                    } else {
+                        if (s.charAt(si) != p.charAt(pi) || p.charAt(pi) != '.') {
+                            return false;
+                        }
+                        si++;
+                        pi++;
+                        predict = pi + 1;
+                    }
+                } else {
+                    if (si == s.length() - 1 && (s.charAt(si) == p.charAt(pi) || p.charAt(pi) == '.')) {
+                        pi++;
+                        si++;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
